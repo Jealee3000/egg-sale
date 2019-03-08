@@ -5,14 +5,14 @@
 // 校验登录中间件
 module.exports = () => {
   return async function checkLogin(ctx, next) {
-    if (!ctx.headers.authentication) {
+    if (!ctx.headers.authorization) {
       ctx.logger.info();
       ctx.status = 401;
       ctx.body = '用户未登录或已超时';
       return;
     }
     try {
-      const token = ctx.headers.authentication;
+      const token = ctx.headers.authorization;
       const session = await ctx.app.redis.get(`session:${token}`);
       ctx.session = session ? JSON.parse(session) : {};
     } catch (e) {
