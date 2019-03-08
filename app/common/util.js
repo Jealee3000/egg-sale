@@ -1,3 +1,4 @@
+'use strict';
 const crypto = require('crypto');
 const obj = {
   // 生成加盐后的md5密码
@@ -14,7 +15,11 @@ const obj = {
   },
   // 模拟生成支付信息
   simulatePayInfo(obj) {
-    console.log(obj);
+    if (!obj || !obj.order_no || !obj.order_name || !obj.order_price) {
+      return {
+        return_code: 'FAILURE',
+      };
+    }
     return {
       return_code: 'SUCCESS',
       return_msg: {
@@ -25,7 +30,9 @@ const obj = {
   },
   // 模拟支付签名校验
   simulatePaySignVerify(obj) {
-    console.log(obj);
+    if (!obj || !obj.out_trade_no || !obj.openid || !obj.sign) {
+      return false;
+    }
     return true;
   },
 };

@@ -25,18 +25,13 @@ module.exports = appInfo => {
   config.middleware = [ 'errorHandler' ];
   config.sequelize = {
     dialect: 'mysql', // support: mysql, mariadb, postgres, mssql
-    database: 'sale',
+    database: 'sale_test',
     host: '127.0.0.1',
     port: '3306',
     username: 'root',
     password: '',
     timezone: '+08:00', // 东八时区
-    dialectOptions: {
-      charset: 'utf8mb4',
-      collate: 'utf8mb4_unicode_ci',
-      supportBigNumbers: true,
-      bigNumberStrings: true,
-    },
+    operatorsAliases: false,
     // logging: console.log, // 日志打印
     benchmark: true, // sql执行时间打印
   };

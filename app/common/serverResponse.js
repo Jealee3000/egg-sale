@@ -1,6 +1,7 @@
 /**
  * Created by huangjiali on 2019/3/6.
  */
+'use strict';
 module.exports = class ServerResponse {
   constructor(status, msg, data) {
     this.status = status;

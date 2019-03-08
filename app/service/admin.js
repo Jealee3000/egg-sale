@@ -1,6 +1,7 @@
 /**
  * Created by huangjiali on 2019/3/6.
  */
+'use strict';
 const Service = require('egg').Service;
 const uuid = require('uuid');
 const util = require('../common/util');
@@ -12,6 +13,7 @@ class AdminService extends Service {
     this.redis = ctx.app.redis;
     this.createByFailureMsg = ctx.response.ServerResponse.createByFailureMsg;
     this.model = ctx.model;
+    this.Op = ctx.model.Op;
     this.Admin = ctx.model.Admin;
     this.Product = ctx.model.Product;
     this.Order = ctx.model.Order;
@@ -48,7 +50,7 @@ class AdminService extends Service {
       status: user.status,
       token,
     };
-    await this.redis.set(`session:${token}`, JSON.stringify(data), 'EX', 24 * 3600);
+    await this.redis.set(`session:${token}`, JSON.stringify(data), 'EX', 2 * 3600);
     return data;
   }
 
@@ -196,7 +198,7 @@ class AdminService extends Service {
       const data = await this.Order.findAll({
         where: {
           pay_date: {
-            gte: today,
+            [this.Op.gte]: today,
           },
         },
         attributes: [
@@ -208,11 +210,13 @@ class AdminService extends Service {
       });
       const obj = {};
       data.forEach(ele => {
-        obj[ele.product_id] = ele.count;
+        obj[ele.product_id] = +ele.count;
       });
       // 查询后缓存对应的数据5分钟，时间可根据业务调整
-      await this.redis.hmset('product:sale_num', obj);
-      await this.redis.expire('product:sale_num', 300);
+      if (data && data.length > 0) {
+        await this.redis.hmset('product:sale_num', obj);
+        await this.redis.expire('product:sale_num', 300);
+      }
       product_sale_obj = obj;
     } else {
       product_sale_obj = product_cache;

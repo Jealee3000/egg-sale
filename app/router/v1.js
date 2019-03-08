@@ -1,6 +1,7 @@
 /**
  * Created by huangjiali on 2019/3/6.
  */
+'use strict';
 module.exports = app => {
   const checkLogin = app.middleware.checkLogin(app);
   const checkRoot = app.middleware.checkRoot(app);

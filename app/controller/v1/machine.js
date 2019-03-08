@@ -1,6 +1,7 @@
 /**
  * Created by huangjiali on 2019/3/7.
  */
+'use strict';
 const Controller = require('egg').Controller;
 
 class machineController extends Controller {

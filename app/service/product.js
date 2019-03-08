@@ -1,9 +1,8 @@
 /**
  * Created by huangjiali on 2019/3/7.
  */
+'use strict';
 const Service = require('egg').Service;
-const uuid = require('uuid');
-const util = require('../common/util');
 
 class ProductService extends Service {
   constructor(ctx) {
@@ -48,8 +47,6 @@ class ProductService extends Service {
         'inventory',
         'status',
         'describe',
-        'created_at',
-        'updated_at',
       ],
     });
     if (!product) return this.createByFailureMsg('该商品不存在');

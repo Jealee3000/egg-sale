@@ -1,6 +1,7 @@
 /**
  * Created by huangjiali on 2019/3/6.
  */
+'use strict';
 module.exports = app => {
   const { INTEGER, STRING } = app.Sequelize;
   const m = app.model.define('admin', {

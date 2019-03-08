@@ -1,6 +1,7 @@
 /**
  * Created by huangjiali on 2019/3/6.
  */
+'use strict';
 module.exports = app => {
   app.beforeStart(async () => {
     await app.model.sync({ force: false });

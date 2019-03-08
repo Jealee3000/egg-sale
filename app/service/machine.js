@@ -1,6 +1,7 @@
 /**
  * Created by huangjiali on 2019/3/7.
  */
+'use strict';
 const Service = require('egg').Service;
 const uuid = require('uuid');
 const util = require('../common/util');

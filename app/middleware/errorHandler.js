@@ -1,6 +1,7 @@
 /**
  * Created by huangjiali on 2019/3/5.
  */
+'use strict';
 // 错误处理中间件
 module.exports = (option, app) => {
   return async function(ctx, next) {
