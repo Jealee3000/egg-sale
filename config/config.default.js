@@ -25,11 +25,11 @@ module.exports = appInfo => {
   config.middleware = [ 'errorHandler' ];
   config.sequelize = {
     dialect: 'mysql', // support: mysql, mariadb, postgres, mssql
-    database: 'sale_test',
-    host: '127.0.0.1',
-    port: '3306',
-    username: 'root',
-    password: '',
+    database: process.env.EGG_MYSQL_DATABASE || 'sale_test',
+    host: process.env.EGG_MYSQL_HOST || '127.0.0.1',
+    port: process.env.EGG_MYSQL_PORT || '3306',
+    username: process.env.EGG_MYSQL_USERNAME || 'root',
+    password: process.env.EGG_MYSQL_PASSWORD || '',
     timezone: '+08:00', // 东八时区
     operatorsAliases: false,
     // logging: console.log, // 日志打印
@@ -38,10 +38,10 @@ module.exports = appInfo => {
 
   config.redis = {
     client: {
-      port: 6379, // Redis port
-      host: '127.0.0.1', // Redis host
-      password: '',
-      db: 0,
+      port: process.env.EGG_REDIS_PORT || 6379, // Redis port
+      host: process.env.EGG_REDIS_HOST || '127.0.0.1', // Redis host
+      password: process.env.EGG_REDIS_PASSWORD || '',
+      db: process.env.EGG_REDIS_DB || 0,
     },
     agent: true,
   };

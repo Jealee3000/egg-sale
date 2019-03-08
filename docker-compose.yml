@@ -1,0 +1,59 @@
+version: '3'
+services: 
+  egg-sale:
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    #   args:
+    #     - env=value
+    image: egg-sale:latest
+    environment:
+      - NODE_ENV=production
+      - EGG_SERVER_ENV=prod
+      - EGG_REDIS_DB=0
+      - EGG_REDIS_HOST=redis
+      - EGG_REDIS_PORT=6379
+      - EGG_REDIS_PASSWORD=egg_sale
+      - EGG_MYSQL_HOST=mysql
+      - EGG_MYSQL_PORT=3306
+      - EGG_MYSQL_DATABASE=sale_test
+      - EGG_MYSQL_USERNAME=root
+      - EGG_MYSQL_PASSWORD=egg_sale
+
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - docker_egg_sale
+    ports:
+      - 7001:7001
+
+  mysql:
+      image: mysql:5.7
+      volumes:
+        - egg-mysql:/data/db
+      restart: always
+      environment:
+        - MYSQL_ROOT_PASSWORD=egg_sale
+        - MYSQL_DATABASE=sale_test
+      networks:
+        - docker_egg_sale
+
+  redis:
+    image: redis:3.2-alpine
+    command: redis-server --appendonly yes --requirepass egg_sale
+    volumes:
+      - egg-redis:/data
+    networks:
+      - docker_egg_sale
+    # ports:
+    #   - 6379:6379
+
+
+volumes:
+  egg-mysql:
+  egg-redis:
+
+networks:
+  docker_egg_sale:
+    driver: bridge 

@@ -18,6 +18,18 @@ $ npm start
 $ npm stop
 ```
 
+### Docker
+
+```bash
+docker build -t egg-sale .
+
+# start
+docker-compose up -d
+
+# stop
+docker-compose down
+```
+
 ### npm scripts
 
 - Use `npm run lint` to check code style.
