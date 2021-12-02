@@ -1,4 +1,4 @@
-# egg-sale
+# egg-sale (test)
 
 简单的贩卖机api服务
 
